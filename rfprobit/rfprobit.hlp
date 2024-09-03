@@ -1,0 +1,106 @@
+.-
+help for ^rfprobit^                                              (STB-26:  sg41)
+.-
+
+Random-effects probit
+---------------------
+
+	^rfprobit^ depvar [indepvars] [^if^ exp] [^in^ range] ^,^ [ ^i(^varname^)^
+			^q^uadrat^(^#^)^ ^nochi^sq ^nolo^g ^l^evel^(^#^)^ maximize_options ]
+
+This command shares the features of all estimation commands; see help @est@.
+
+To reset problem-size limits, see help @matsize@.
+
+
+Description
+-----------
+
+^rfprobit^ estimates a random-effects probit model for cross-sectional time-
+series data sets using maximum likelihood estimation.  The likelihood (for
+an independent unit i) is expressed as an integral which is computed using
+Gaussian-Hermite quadrature.  This computational procedure is only accurate
+when there are a small-to-moderate number of time periods T_i per unit i. 
+It is recommended that ^rfprobit^ only be used when max(T_i) <= 50.
+
+
+Options
+-------
+
+^i(^varname^)^ specifies the variable corresponding to an independent unit
+    (e.g., a subject id).  This variable represents the i in x_it.  Either
+    this option must be specified or i must be set using the ^iis^ command;
+    see help for @xt@.
+
+^quadrat(^#^)^ specifies the number of points to use for Gaussian-Hermite
+    quadrature.  Default is 6.  Increasing this value slightly improves
+    accuracy, but also increases computation time.  Computation time is
+    roughly proportional to its value.
+
+^nochisq^ omits the estimation of the constant-only model.  This will reduce
+    computation time at the cost of not being able to calculate the model
+    chi-squared or pseudo R^^2.
+
+^nolog^ suppress the display of the likelihood iterations.
+
+^level(^#^)^ specifies the significance level, in percent, for confidence 
+    intervals of the coefficients; see help @level@.
+
+maximize_options control the maximization process; see [7] maximize.
+    Use the ^trace^ option to view parameter convergence.
+    The ^ltol(^#^)^ option can be used to loosen the convergence
+    criterion (default is 1e-6) during specification searches.
+
+
+Examples
+--------
+
+ . ^xtset Identity Year^
+ . ^rfprobit Dependen Independen_1 Independen_2 Independen_3^
+ . ^rfprobit Dependen Independen_1 Independen_2 Independen_3, i(Identity)^
+ . ^rfprobit Dependen Independen_1 Independen_2 Independen_3, i(Identity) nochisq^
+ . ^rfprobit Dependen Independen_1 Independen_2 Independen_3, i(Identity) quad(8) nolog^
+ . ^rfprobit Dependen Independen_1 Independen_2 Independen_3, i(Identity) trace^
+
+
+Method
+------
+
+^rfprobit^ uses the deriv1 method (analytic first derviatives) of Stata's ^ml^
+commands.  See Butler and Moffitt (1982) for details. 
+
+
+Author
+------
+
+        Timbul Widodo
+	Olah Data Semarang
+        WA : +6285227746673 (085227746673)
+        Receive Statistical Analysis Data Processing Services Using
+        SPSS, AMOS, LISREL, Frontier 4.1, EVIEWS, SMARTPLS, STATA
+        DEAP 2.1, ETC
+
+	Bill Sribney
+	Stata Corporation
+	702 University Drive East
+	College Station, TX 77840
+	Phone: 409-696-4600
+	       800-782-8272
+	Fax:   409-696-4601
+        email: tech_support@@stata.com
+
+
+Reference
+---------
+
+Butler, J.S. and  R. Moffitt.  1982.  A computationally efficient quadrature 
+    procedure for the one-factor multinomial probit model.  Econometrica 50: 
+    761-764.
+
+
+Also see
+--------
+
+    STB:  STB-26 sg41
+ Manual:  [5s] xt, [5s] xtreg, [7] maximize
+On-line:  help for @xt@, @xtreg@

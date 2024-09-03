@@ -1,0 +1,95 @@
+.-
+help for ^reoprob^                               (STB-59: sg158; STB-61: sg158.1)
+.-
+
+Random-effects ordered probit
+-----------------------------
+
+	^reoprob^ depvar varlist [^if^ exp] [^in^ range] ^,^ 
+			[ ^i(^varname^)^ ^q^uadrat^(^#^)^ ^l^evel^(^#^)^ maximize_options ]
+
+This command shares the features of all estimation commands; see help @est@.
+
+To reset problem-size limits, see help @matsize@.
+
+
+Description
+-----------
+
+^reoprob^ estimates a random-effects ordered probit model for panel datasets
+using maximum likelihood estimation.  The likelihood for each unit is
+approximated by Gauss-Hermite quadrature.
+
+
+Options
+-------
+
+^i(^varname^)^ specifies the variable corresponding to an independent unit
+    (e.g., a subject id).  ^i(^varname^)^ is not optional.
+
+^quadrat(^#^)^ specifies the number of points to use for Gaussian-Hermite
+    quadrature. It is optional, and the default is 12. Increasing this value
+    improves accuracy, but also increases computation time.  Computation time
+    is roughly proportional to its value.
+
+^level(^#^)^ specifies the confidence level, in percent, for confidence
+    intervals.  The default is ^level(95)^ or as set by ^set level^.
+
+maximize_options controls the maximization process and the display of
+    information; see [R] maximize. ^nolog^ suppresses the display of the 
+    likelihood iterations.  Use the ^trace^ option to view parameter
+    convergence.  The ^ltol(^#^)^ and ^tol(^#^)^ option can be used to loosen
+    the convergence criterion (respectively 1e-7 and 1e-6 by default) during
+    specification searches. ^iter(^#^)^ specifies the maximum number of
+    iterations.
+
+
+Examples
+--------
+
+   . ^reoprob y x, i(id)^
+   . ^reoprob y x^
+   . ^reoprob y x, i(id) quad(24) nolog^
+   . ^reoprob y x, i(id) trace^
+   . ^reoprob^
+
+
+Method
+------
+
+^reoprob^ uses the d1 method (analytic first derviatives) of Stata's ^ml^
+commands.  See Butler and Moffitt (1982) for details about using Gauss-Hermite
+quadrature to approximate such integrals. Also see Green (2000) for
+information on how to estimate a basic ordered probit model.
+
+
+Author
+------
+
+	Guillaume R. Frechette
+	Ohio State University
+	Department of Economics
+	410 Arps Hall
+	1945 North High Street
+	Columbus, OH 43210-1172
+	Tel: (614) 688-4140
+	Fax: (614) 292-4192
+	e-mail: frechette.6@@osu.edu
+	http://www.econ.ohio-state.edu/frechette/
+
+
+Reference
+---------
+
+Butler, J.S. and  R. Moffitt.  1982.  A computationally efficient 
+     quadrature procedure for the one-factor multinomial probit model.  
+     Econometrica 50: 761-764.
+
+Green, W. H. 2000. Econometric Analysis. Prentice Hall, New Jersey. 
+     pp. 875-878.
+
+Also see
+--------
+
+ Manual:  ^[R] xt, [R] xtprobit, [R] maximize, [R] oprobit^
+On-line:  help for @xt@, @xtreg@
