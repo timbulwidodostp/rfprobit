@@ -1,5 +1,11 @@
-d 'DEA': Data envelopment analysis
+d 'rfprobit': Random Effects Probit Use rfprobit With STATA 18
 d
-f dea.ado
-f dea.sthlp
-f coelli_table6.4.dta
+f ghquadm.ado
+f ghquadm.hlp
+f reop_ll.ado
+f reopc_ll.ado
+f reoprob.ado
+f reoprob.hlp
+f rfpr_ll1.ado
+f rfprobit.ado
+f rfprobit.hlp
